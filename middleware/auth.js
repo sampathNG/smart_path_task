@@ -2,11 +2,10 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config({ path: "../.env" });
 import { PERMISSIONS } from "../config/roles.js";
-const JWT_SECRET = process.env.JWT_SECRET;
 export const generateToken = (user) => {
   return jwt.sign(
     { id: user._id, email: user.email, role: user.role },
-    JWT_SECRET,
+    process.env.JWT_SECRET,
     { expiresIn: "24h" }
   );
 };
@@ -16,7 +15,7 @@ export const authenticate = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({ message: "Authentication required" });
     }
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     next();
   } catch (error) {

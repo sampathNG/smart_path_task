@@ -5,7 +5,7 @@ import { validate } from "../middleware/validator.js";
 import { authenticate, authorize } from "../middleware/auth.js";
 const router = express.Router();
 router.post(
-  "/courses/:courseId/quizzes",
+  "/courses/:courseId/",
   authenticate,
   authorize("QUIZ", "CREATE"),
   [
@@ -19,7 +19,7 @@ router.post(
   quizController.createQuiz
 );
 router.get(
-  "/courses/:courseId/quizzes",
+  "/courses/:courseId/",
   authenticate,
   authorize("QUIZ", "READ"),
   [

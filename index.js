@@ -11,13 +11,16 @@ import authRoutes from "./routes/authRoutes.js";
 import { handleError } from "./utils/errorHandler.js";
 dotenv.config({ path: "./.env" });
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 // Middleware
 app.use(helmet());
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // Routes
+app.get("/", (req, res) => {
+  res.send("Hello, World!");
+});
 app.use("/api/auth", authRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/quizzes", quizRoutes);
